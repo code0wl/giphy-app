@@ -1,0 +1,32 @@
+<main class="container" *ngIf="$getGifs | async as gifs">
+  <section>
+    <form>
+      <fieldset>
+        <app-search
+          [val]="gifs.searchTerm"
+          (search)="onSearch($event)"></app-search>
+      </fieldset>
+    </form>
+  </section>
+
+  <section>
+    <h3>
+      <small class="xs">Giphy</small>
+      {{ gifs.searchTerm || 'Trending'}}
+    </h3>
+    <ul class="gif-collection">
+      <li class="gif-collection__list-item" *ngFor="let gif of gifs.data">
+        <a routerLink="/detail/{{ gif.id }}">
+          <app-giphy [url]="gif.embed_url"></app-giphy>
+          <p class="align-center">{{ gif.title || "View Giphy" }}</p>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="pagination">
+    <app-pagination
+      [isLastPage]="$max | async"
+      [currentPage]="$currentPage | async"></app-pagination>
+  </section>
+</main>

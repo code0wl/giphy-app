@@ -1,0 +1,16 @@
+.gif-collection {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+  margin: 0;
+
+  &__list-item {
+    overflow: hidden;
+  }
+}
+
+.xs {
+  font-size: 2rem;
+}

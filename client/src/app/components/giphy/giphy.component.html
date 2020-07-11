@@ -1,0 +1,9 @@
+<article>
+  <h3>{{ title }}</h3>
+  <iframe
+    [title]="title"
+    [src]="url | sanitize"
+    frameBorder="0"
+    class="giphy-embed giphy-entry"
+  ></iframe>
+</article>

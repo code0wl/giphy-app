@@ -1,0 +1,7 @@
+<nav class="navigation__back">
+  <a (click)="goBack()" class="button"> Go back </a>
+</nav>
+
+<section class="detail__section--middle" *ngIf="$selectedGif | async as gif">
+  <app-giphy [title]="gif.title" [url]="gif.embed_url"></app-giphy>
+</section>

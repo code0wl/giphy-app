@@ -1,0 +1,18 @@
+<nav class="pagination" [attr.data-current]="currentPage">
+  <button
+    routerLink="/page/{{ currentPage - 1 }}"
+    [disabled]="currentPage <= 0"
+    queryParamsHandling="merge"
+    class="button button-outline previous"
+  >
+    Previous
+  </button>
+  <button
+    [disabled]="isLastPage"
+    routerLink="/page/{{ currentPage + 1 }}"
+    queryParamsHandling="merge"
+    class="button button-outline next"
+  >
+    Next
+  </button>
+</nav>

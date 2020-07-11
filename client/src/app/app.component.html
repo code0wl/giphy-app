@@ -1,0 +1,5 @@
+<div [hidden]="($isLoading | async) === false">
+  <app-loader></app-loader>
+</div>
+
+<router-outlet></router-outlet>
