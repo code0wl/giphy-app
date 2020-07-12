@@ -1,11 +1,13 @@
 export interface IGiphyPayload {
-  searchTerm?: string;
-  data: IGiphy[];
+  data: IGiphy | IGiphy[];
   pagination: {
     count: number;
     offset: number;
     total_count: number;
   };
+  searchTerm?: string;
+  offset?: string;
+  isMax(): boolean;
 }
 
 export interface IGiphy {

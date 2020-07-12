@@ -14,19 +14,19 @@ import { GiphyService } from 'client/src/app/services/giphy/giphy.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetailComponent implements OnInit {
-  $selectedGif: Observable<IGiphy[]>;
+  $selectedGif: Observable<IGiphy>;
 
   constructor(
     private giphyService: GiphyService,
     private activatedRoute: ActivatedRoute,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.$selectedGif = this.activatedRoute.params.pipe(
       switchMap(({ id }) => this.giphyService.getGif(id)),
       map(({ data }) => data)
-    );
+    ) as Observable<IGiphy>;
   }
 
   goBack() {

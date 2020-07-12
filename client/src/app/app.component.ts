@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'giphy-app-thingy';
   $isLoading: Observable<boolean>;
 
-  constructor(private loaderService: LoaderService) {}
+  constructor(private loaderService: LoaderService) { }
 
   ngOnInit(): void {
     this.$isLoading = this.loaderService.getLoaderState();

@@ -18,7 +18,7 @@ describe('GiphyService', () => {
   });
 
   it('should retrieve trending items and be called once', done => {
-    giphyService.getTrending().subscribe(() => {
+    giphyService.getTrending(1, 1, 1).subscribe(() => {
       expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
       expect(httpClientSpy.get.calls.argsFor(0).pop()).toContain('trending');
       done();
@@ -34,7 +34,7 @@ describe('GiphyService', () => {
   });
 
   it('should retrieve giphies matching the search criteria', done => {
-    giphyService.searchGifs(8, 'puppies', 0).subscribe(() => {
+    giphyService.searchGifs(8, 'puppies', 0, 1).subscribe(() => {
       expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
       expect(httpClientSpy.get.calls.argsFor(0).pop()).toContain('puppies');
       done();
@@ -50,7 +50,7 @@ describe('GiphyService', () => {
 
     httpClientSpy.get.and.returnValue(asyncError(errorResponse));
 
-    giphyService.getTrending().subscribe(
+    giphyService.getTrending(8, 1, 1).subscribe(
       () => '',
       error => {
         expect(error).toContain('404');

@@ -1,6 +1,6 @@
 # Giphy app
 
-Total time spent: approx. 5 hrs
+Total time spent: approx. 7 hrs
 
 To not draw focus away from the Frontend, I have used iFrames instead of having a backend server reading the gifs. 
 It amounts to the same thing to avoid cors issues.

@@ -7,4 +7,4 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
   declarations: [SanitizePipe],
   exports: [SanitizePipe]
 })
-export class UtilitiesModule {}
+export class UtilitiesModule { }

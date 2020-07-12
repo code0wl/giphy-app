@@ -1,8 +1,8 @@
+import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { DummyComponent } from 'utilities/testing/dummy.component';
 import { GiphyComponent } from './giphy.component';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('GiphyComponent', () => {
   let component: GiphyComponent;
@@ -14,7 +14,7 @@ describe('GiphyComponent', () => {
       imports: [],
       declarations: [DummyComponent]
     })
-      .compileComponents()
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -32,14 +32,14 @@ describe('GiphyComponent', () => {
   });
 
   it('should display a giphy title correctly inside of a h3', () => {
-    component.title = 'wow!'
+    component.title = 'wow!';
     fixture.detectChanges();
     const { innerText } = el.query(By.css('h3')).nativeElement;
     expect(innerText).toBe('wow!');
   });
 
   it('should display the correct given url in an iframe', () => {
-    component.url = 'some silly url'
+    component.url = 'some silly url';
     fixture.detectChanges();
     const src = el.query(By.css('iframe')).nativeElement.getAttribute('src');
     expect(src).toBe('some silly url');

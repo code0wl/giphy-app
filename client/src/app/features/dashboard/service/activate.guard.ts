@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CanActivateGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | boolean {
     const { offset } = route.params;
     if (offset >= 0) {

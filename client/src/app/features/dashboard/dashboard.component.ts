@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {combineLatest, Observable, Subject } from 'rxjs';
+import { combineLatest, Observable, Subject } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
   map,
   pluck,
   share,
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 
 import { IGiphyPayload } from 'client/src/app/models/giphy/giphy.model';
@@ -17,7 +17,7 @@ import { GiphyService } from 'client/src/app/services/giphy/giphy.service';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
   $getGifs: Observable<IGiphyPayload>;
@@ -45,27 +45,21 @@ export class DashboardComponent implements OnInit {
       map(({ offset }) => Number(offset))
     );
 
-    this.$getGifs = combineLatest([this.$currentPage, $currentTerm])
-      .pipe(
-        switchMap(([offset, currentTerm]) => {
-          const offsetLimit = this.limit * offset;
-          return currentTerm
-            ? this.giphyService.searchGifs(this.limit, currentTerm, offsetLimit)
-            : this.giphyService.getTrending(this.limit, offsetLimit);
-        }),
-        share()
-      );
-
-    this.$max = this.$getGifs.pipe(
-      pluck('pagination'),
-      map(({ total_count, offset }) => total_count - offset <= this.limit)
+    this.$getGifs = combineLatest([this.$currentPage, $currentTerm]).pipe(
+      switchMap(([offset, currentTerm]) => {
+        const offsetLimit = this.limit * offset;
+        return currentTerm
+          ? this.giphyService.searchGifs(this.limit, currentTerm, offsetLimit, offset)
+          : this.giphyService.getTrending(this.limit, offsetLimit, offset);
+      }),
+      share()
     );
   }
 
   onSearch(searchTerm) {
     this.query$.next(searchTerm);
     this.router.navigate(!searchTerm ? ['/page', '0'] : [], {
-      queryParams: searchTerm ? { query: searchTerm } : {}
+      queryParams: searchTerm ? { query: searchTerm } : {},
     });
   }
 }

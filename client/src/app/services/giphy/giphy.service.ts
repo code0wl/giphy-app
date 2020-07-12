@@ -10,29 +10,32 @@ import { environment } from 'client/src/environments/environment';
   providedIn: 'root'
 })
 export class GiphyService {
+
   constructor(private http: HttpClient) { }
 
-  getTrending(limit = 8, offset = 0): Observable<IGiphyPayload> {
-    const url = `${ environment.apiURL }trending?api_key=${ environment.ApiKey }&limit=${ limit }&offset=${ offset }`;
-    return this.getHandler(url, '');
+  getTrending(limit = 8, offsetLimit = 0, offset): Observable<IGiphyPayload> {
+    const url = `${environment.apiURL}trending?api_key=${environment.ApiKey}&limit=${limit}&offset=${offsetLimit}`;
+    return this.getHandler(url, '', limit, offset);
   }
 
   getGif(id: string): Observable<IGiphyPayload> {
-    const url = `${ environment.apiURL }${ id }?api_key=${ environment.ApiKey }`;
+    const url = `${environment.apiURL}${id}?api_key=${environment.ApiKey}`;
     return this.getHandler(url);
   }
 
-  searchGifs(limit, searchQuery, offset): Observable<IGiphyPayload> {
-    const url = `${ environment.apiURL }search?api_key=${ environment.ApiKey }&q=${ searchQuery }&limit=${ limit }&offset=${ offset }}`;
-    return this.getHandler(url, searchQuery);
+  searchGifs(limit, searchQuery, offsetLimit, offset): Observable<IGiphyPayload> {
+    const url = `${environment.apiURL}search?api_key=${environment.ApiKey}&q=${searchQuery}&limit=${limit}&offset=${offsetLimit}}`;
+    return this.getHandler(url, searchQuery, limit, offset);
   }
 
-  private getHandler(url, searchTerm = 'Trending') {
+  private getHandler(url, searchTerm?, limit?, offset?) {
     return this.http.get<IGiphyPayload>(url).pipe(
       map(({ data, pagination }) => ({
         data,
         searchTerm,
-        pagination
+        pagination,
+        offset,
+        isMax: () => pagination.total_count - pagination.offset <= limit
       })),
       catchError(this.handleError)
     );

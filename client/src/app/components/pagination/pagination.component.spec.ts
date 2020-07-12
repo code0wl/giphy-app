@@ -50,7 +50,7 @@ describe('PaginationComponent', () => {
     component.currentPage = 1;
     fixture.detectChanges();
     const buttons = el.queryAll(By.directive(RouterLink));
-    const [_, next] = buttons;
+    const next = buttons[1];
 
     next.nativeElement.click();
 

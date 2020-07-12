@@ -4,7 +4,8 @@
       <fieldset>
         <app-search
           [val]="gifs.searchTerm"
-          (search)="onSearch($event)"></app-search>
+          (search)="onSearch($event)"
+        ></app-search>
       </fieldset>
     </form>
   </section>
@@ -12,7 +13,7 @@
   <section>
     <h3>
       <small class="xs">Giphy</small>
-      {{ gifs.searchTerm || 'Trending'}}
+      {{ gifs.searchTerm || "Trending" }}
     </h3>
     <ul class="gif-collection">
       <li class="gif-collection__list-item" *ngFor="let gif of gifs.data">
@@ -26,7 +27,8 @@
 
   <section class="pagination">
     <app-pagination
-      [isLastPage]="$max | async"
-      [currentPage]="$currentPage | async"></app-pagination>
+      [isLastPage]="gifs.isMax()"
+      [currentPage]="gifs.offset"
+    ></app-pagination>
   </section>
 </main>

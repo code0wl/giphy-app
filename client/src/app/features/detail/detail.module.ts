@@ -20,4 +20,4 @@ import { DetailRoutes } from './detail.routing';
   exports: [DetailComponent],
   declarations: [DetailComponent]
 })
-export class DetailModule {}
+export class DetailModule { }

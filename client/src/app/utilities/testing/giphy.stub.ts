@@ -2,6 +2,7 @@ import { IGiphyPayload } from 'app/models/giphy/giphy.model';
 
 export const mockGyphy: IGiphyPayload = {
   searchTerm: 'Trending',
+  isMax: () => true,
   pagination: {
     total_count: 1,
     offset: 1,

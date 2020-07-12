@@ -1,8 +1,8 @@
+import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { DummyComponent } from 'utilities/testing/dummy.component';
 import { SearchComponent } from './search.component';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -14,7 +14,7 @@ describe('SearchComponent', () => {
       imports: [],
       declarations: [DummyComponent]
     })
-      .compileComponents()
+      .compileComponents();
   }));
 
   beforeEach(() => {

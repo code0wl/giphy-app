@@ -40,7 +40,7 @@ describe('DashboardComponent', () => {
   it('should request for awesome trending gifs', (done) => {
     fixture.ngZone.run(() => {
       giphyServiceSpy.getTrending.and.returnValue(asyncData(mockGyphy));
-      component.$getGifs.subscribe(({searchTerm}) => {
+      component.$getGifs.subscribe(({ searchTerm }) => {
         expect(searchTerm).toBe('Trending');
         expect(giphyServiceSpy.getTrending.calls.count()).toBe(1, 'one call');
         done();
@@ -61,11 +61,13 @@ describe('DashboardComponent', () => {
 
   it('should not allow further navigation is max is reached', (done) => {
     fixture.ngZone.run(() => {
-      component.$max.subscribe(isMax => {
-        expect(isMax).toBeTruthy();
+      component.$getGifs.subscribe(({ isMax }) => {
+        expect(isMax()).toBeTruthy();
         done();
       });
-      giphyServiceSpy.getTrending.and.returnValue(asyncData(mockGyphy));
+      giphyServiceSpy.searchGifs.and.returnValue(asyncData(mockGyphy));
+      router.navigate(['/page/0'], { queryParams: { query: 'lol' } });
+
     });
   });
 });
