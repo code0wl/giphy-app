@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Observable, Subject } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { combineLatest, Observable, Subject } from "rxjs";
 import {
   debounceTime,
   distinctUntilChanged,
@@ -8,15 +8,15 @@ import {
   pluck,
   share,
   switchMap,
-} from 'rxjs/operators';
+} from "rxjs/operators";
 
-import { IGiphyPayload } from 'client/src/app/models/giphy/giphy.model';
-import { GiphyService } from 'client/src/app/services/giphy/giphy.service';
+import { IGiphyPayload } from "client/src/app/models/giphy/giphy.model";
+import { GiphyService } from "client/src/app/services/giphy/giphy.service";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
@@ -32,11 +32,11 @@ export class DashboardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private giphyService: GiphyService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     const $currentTerm = this.activatedRoute.queryParams.pipe(
-      pluck('query'),
+      pluck("query"),
       debounceTime(1000),
       distinctUntilChanged()
     );
@@ -49,16 +49,25 @@ export class DashboardComponent implements OnInit {
       switchMap(([offset, currentTerm]) => {
         const offsetLimit = this.limit * offset;
         return currentTerm
-          ? this.giphyService.searchGifs(this.limit, currentTerm, offsetLimit, offset)
+          ? this.giphyService.searchGifs(
+              this.limit,
+              currentTerm,
+              offsetLimit,
+              offset
+            )
           : this.giphyService.getTrending(this.limit, offsetLimit, offset);
       }),
       share()
     );
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+  }
+
   onSearch(searchTerm) {
     this.query$.next(searchTerm);
-    this.router.navigate(!searchTerm ? ['/page', '0'] : [], {
+    this.router.navigate(!searchTerm ? ["/page", "0"] : [], {
       queryParams: searchTerm ? { query: searchTerm } : {},
     });
   }

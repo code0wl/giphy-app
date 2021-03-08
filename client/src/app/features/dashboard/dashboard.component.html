@@ -1,6 +1,6 @@
 <main class="container" *ngIf="$getGifs | async as gifs">
   <section>
-    <form>
+    <form (submit)="handleSubmit($event)">
       <fieldset>
         <app-search
           [val]="gifs.searchTerm"
